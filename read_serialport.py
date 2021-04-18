@@ -9,6 +9,10 @@ def readgps(latitude,longitude):
         # Read NMEA strings and make it readable 
         while True:
                 line = ser.readline().decode()
+                if "GPGSV" in line: 
+                        gpgsvd = line.split(',')
+                        GPGSV_data(gpgsvd)
+
                 if "GPGGA" in line:
                         gpdd = line.split(',')
                         GPGGA_data(gpdd)
@@ -20,6 +24,7 @@ def readgps(latitude,longitude):
                 if "GPRMC" in line:
                         gprmcd = line.split(',')
                         GPRMC_data(gprmcd)
+                
 
 def GPGGA_data(gpdd):
         print ("Global Positioning Data")
@@ -54,5 +59,12 @@ def GPRMC_data(gpmrcd):
         print ("UT Date: " + gpmrcd[9])
         print ("Magnetic variation degrees: " + gpmrcd[10] + gpmrcd[11])
         print ("Checksum: " + gpmrcd[12])
+        print ("----------------------------------")
+
+def GPGSV_data(gpgsvd): 
+        print ("GPS Satellites in View")
+        print ("Total Number of Messanges in Cycle: " + gpgsvd[1])
+        print ("Message Number: " + gpgsvd[2])
+        print ("Total number of SV in view" + gpgsvd[3])
 
 readgps(latitude, longitude)
