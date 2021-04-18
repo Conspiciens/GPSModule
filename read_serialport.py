@@ -20,6 +20,10 @@ def readgps(latitude,longitude):
                 if "GPVTG" in line:
                         gpvtgd = line.split(',')
                         GPVTG_data(gpvtgd)
+                
+                if "GPGLL" in line: 
+                        gpglld = line.split(',')
+                        GPGLL_data(gpglld)
 
                 if "GPRMC" in line:
                         gprmcd = line.split(',')
@@ -39,7 +43,7 @@ def GPGGA_data(gpdd):
         print ("Last DGPS update: " + gpdd[13])
         # print ("DGPS Reference station ID: " + gpdd[14])
         print ("Checksum: " + gpdd[14])
-        print ("---------------------------------")
+        print ("----------------------------------")
 
 def GPVTG_data(gpvtgd):
         print ("Track Made Good and Ground Speed")
@@ -63,8 +67,22 @@ def GPRMC_data(gpmrcd):
 
 def GPGSV_data(gpgsvd): 
         print ("GPS Satellites in View")
-        print ("Total Number of Messanges in Cycle: " + gpgsvd[1])
+        print ("Total Number of Messages in Cycle: " + gpgsvd[1])
         print ("Message Number: " + gpgsvd[2])
-        print ("Total number of SV in view" + gpgsvd[3])
+        print ("Total number of SV in view: " + gpgsvd[3])
+        print ("SV PRN Number: " + gpgsvd[4])
+        print ("Elevation in degrees: " + gpgsvd[5])
+        print ("Azimuth degrees from true North: " + gpgsvd[6])
+        # 8-11 = Information about second SV, same as field 4-7
+        # 12-15= Information about third SV, same as field 4-7
+        # 16-19= Information about fourth SV, same as field 4-7
+        print ("----------------------------------")
+
+def GPGLL_data(gpglld):
+        print ("Geographic Position, Latitude / Longitude and time")
+        print ("Current Latitude: " + gpglld[1] + ' ' + gpglld[2])
+        print ("Current Longitude: " + gpglld[3] + ' ' + gpglld[4])
+        print ("Checksum: " + gpglld[5])
+        print ("----------------------------------")
 
 readgps(latitude, longitude)
