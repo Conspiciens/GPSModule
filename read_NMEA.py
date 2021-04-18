@@ -19,7 +19,6 @@ class Serial_reader:
         dotenv.set_key(dotenv_file, "DIRECTORY", os.environ["DIRECTORY"])
 
     def read_nvmea(self):
-        print(self.directory)
         ser = serial.Serial(self.directory)
         line = ser.readline().decode()
         list_info = line.split(',')
