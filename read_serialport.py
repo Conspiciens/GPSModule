@@ -8,7 +8,7 @@ longitude = ''
 def readgps(latitude,longitude):
         # Read NMEA strings and make it readable 
         while True:
-                line = ser.readline()
+                line = ser.readline().decode()
                 if "GPGGA" in line:
                         gpdd = line.split(',')
                         GPGGA_data(gpdd)
