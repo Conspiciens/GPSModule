@@ -1,4 +1,4 @@
-import serial
+import serial 
 import socket
 
 ser = serial.Serial('/dev/serial0')
@@ -6,7 +6,7 @@ latitude = ''
 longitude = ''
 
 def readgps(latitude,longitude):
-        """Read the GPG LINE using the NMEA standard"""
+        # Read NMEA strings and make it readable 
         while True:
                 line = ser.readline()
                 if "GPGGA" in line:
@@ -20,8 +20,6 @@ def readgps(latitude,longitude):
                 if "GPRMC" in line:
                         gprmcd = line.split(',')
                         GPRMC_data(gprmcd)
-
-        print ("Finished")
 
 def GPGGA_data(gpdd):
         print ("Global Positioning Data")
@@ -49,4 +47,12 @@ def GPVTG_data(gpvtgd):
         print ("----------------------------------")
 
 def GPRMC_data(gpmrcd):
+        print ("Recommended minimum specific GPS/Transit data")
         print ("Vadility: " + gpmrcd[2])
+        print ("Speed over ground in knots: " + gpmrcd[7])
+        print ("Track in Degrees: " + gpmrcd[8])
+        print ("UT Date: " + gpmrcd[9])
+        print ("Magnetic variation degrees: " + gpmrcd[10] + gpmrcd[11])
+        print ("Checksum: " + gpmrcd[12])
+
+readgps(latitude, longitude)
