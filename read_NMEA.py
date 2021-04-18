@@ -8,8 +8,9 @@ class Serial_reader:
         self.directory = self.get_directory()
 
     def get_directory(self):
-        load_dotenv()
-        return os.getenv('DIRECTORY')
+        dotenv_file = dotenv.find_dotenv('directory_value.env')
+        dotenv.load_dotenv(dotenv_file)
+        return os.environ["DIRECTORY"]
     
     def rewrite_directory(self, dir):
         dotenv_file = dotenv.find_dotenv('directory_value.env')
@@ -18,6 +19,7 @@ class Serial_reader:
         dotenv.set_key(dotenv_file, "DIRECTORY", os.environ["DIRECTORY"])
 
     def read_nvmea(self):
+        print(self.directory)
         ser = serial.Serial(self.directory)
         line = ser.readline().decode()
         list_info = line.split(',')
