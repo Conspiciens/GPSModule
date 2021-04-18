@@ -15,19 +15,24 @@ parser.add_argument("-d", "--directory", help="Write directory where GPS module 
 args = parser.parse_args()
 
 if args.GPGSV: 
-    read_string.GPGSV_data()
+    while True:
+        read_string.GPGSV_data()
 
 elif args.GPGGA:
-    read_string.GPGGA_data()
+    while True: 
+        read_string.GPGGA_data()
 
 elif args.GPVTG:
-    read_string.GPVTG_data()
+    while True: 
+        read_string.GPVTG_data()
 
 elif args.GPGLL: 
-    read_string.GPGLL_data()
+    while True:
+        read_string.GPGLL_data()
 
 elif args.GPRMC: 
-    read_string.GPRMC_data()
+    while True: 
+        read_string.GPRMC_data()
 
 elif args.directory: 
     read_string.rewrite_directory(args.directory)
