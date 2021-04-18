@@ -1,7 +1,6 @@
 import argparse
+from os import read
 import read_NMEA 
-
-read_string = read_NMEA.Serial_reader()
 
 parser = argparse.ArgumentParser()
 
@@ -15,19 +14,20 @@ parser.add_argument("-d", "--directory", help="Write directory where GPS module 
 args = parser.parse_args()
 
 if args.GPGSV: 
-    read_string.GPGSV_data()
+    while True: 
+        read_NMEA.GPGSV_data()
 
 elif args.GPGGA:
-    read_string.GPGGA_data()
+    read_NMEA.GPGGA_data()
 
 elif args.GPVTG:
-    read_string.GPVTG_data()
+    read_NMEA.GPVTG_data()
 
 elif args.GPGLL: 
-    read_string.GPGLL_data()
+    read_NMEA.GPGLL_data()
 
 elif args.GPRMC: 
-    read_string.GPRMC_data()
+    read_NMEA.GPRMC_data()
 
 elif args.directory: 
-    read_string.rewrite_directory(args.directory)
+    read_NMEA.rewrite_directory(args.directory)
