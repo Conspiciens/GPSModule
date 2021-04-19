@@ -3,44 +3,45 @@ import serial
 import os
 from dotenv import load_dotenv
 
-def start_serial(): 
-    return serial.Serial(get_directory())
+class GPS_reader: 
+    def __init__(self): 
+        self.ser = serial.Serial(self.get_directory())
 
-def get_directory():
-    dotenv_file = dotenv.find_dotenv('directory_value.env')
-    dotenv.load_dotenv(dotenv_file)
-    return os.environ["DIRECTORY"]
+    def get_directory(self):
+        dotenv_file = dotenv.find_dotenv('directory_value.env')
+        dotenv.load_dotenv(dotenv_file)
+        return os.environ["DIRECTORY"]
     
-def rewrite_directory(dir):
-    dotenv_file = dotenv.find_dotenv('directory_value.env')
-    dotenv.load_dotenv(dotenv_file)
-    os.environ["DIRECTORY"] = dir
-    dotenv.set_key(dotenv_file, "DIRECTORY", os.environ["DIRECTORY"])
+    def rewrite_directory(dir):
+        dotenv_file = dotenv.find_dotenv('directory_value.env')
+        dotenv.load_dotenv(dotenv_file)
+        os.environ["DIRECTORY"] = dir
+        dotenv.set_key(dotenv_file, "DIRECTORY", os.environ["DIRECTORY"])
 
-def read_nvmea():
-    line = start_serial().readline().decode()
-    list_info = line.split(',')
-    return list_info
+    def read_nvmea(self):
+        line = self.ser.readline().decode()
+        list_info = line.split(',')
+        return list_info
 
-def GPGGA_data():  
-    gpdd = read_nvmea()
+    def GPGGA_data(self):  
+        gpdd = self.read_nvmea()
 
-    print ("Global Positioning Data")
-    print ("Time: " + gpdd[1])
-    print ("Latitude: " + gpdd[2]+ gpdd[3])
-    print ("Longtitude: " + gpdd[4] + gpdd[5])
-    print ("Fix Quality: " + gpdd[6])
-    print ("Num Satellites: " + gpdd[7])
-    print ("HDOP: " + gpdd[8])
-    print ("Altitude: " + gpdd[9] + gpdd[10])
-    print ("Height Above Ellipsiodal Height: " + gpdd[11] + gpdd[12])
-    print ("Last DGPS update: " + gpdd[13])
-    # print ("DGPS Reference station ID: " + gpdd[14])
-    print ("Checksum: " + gpdd[14])
-    print ("----------------------------------")
+        print ("Global Positioning Data")
+        print ("Time: " + gpdd[1])
+        print ("Latitude: " + gpdd[2]+ gpdd[3])
+        print ("Longtitude: " + gpdd[4] + gpdd[5])
+        print ("Fix Quality: " + gpdd[6])
+        print ("Num Satellites: " + gpdd[7])
+        print ("HDOP: " + gpdd[8])
+        print ("Altitude: " + gpdd[9] + gpdd[10])
+        print ("Height Above Ellipsiodal Height: " + gpdd[11] + gpdd[12])
+        print ("Last DGPS update: " + gpdd[13])
+        # print ("DGPS Reference station ID: " + gpdd[14])
+        print ("Checksum: " + gpdd[14])
+        print ("----------------------------------")
     
 def GPVTG_data():
-    gpvtgd = read_nvmea() 
+    # gpvtgd = read_nvmea() 
 
     print ("Track Made Good and Ground Speed")
     print ("Track Made Good: " + gpvtgd[1] + gpvtgd[2])
@@ -52,7 +53,7 @@ def GPVTG_data():
     print ("----------------------------------")
     
 def GPRMC_data():
-    gpmrcd = read_nvmea()
+    # gpmrcd = read_nvmea()
 
     print ("Recommended minimum specific GPS/Transit data")
     print ("Vadility: " + gpmrcd[2])
@@ -79,7 +80,7 @@ def GPGSV_data(gpgsvd):
     print ("----------------------------------")
 
 def GPGLL_data():
-    gpglld = read_nvmea()
+    # gpglld = read_nvmea()
 
     print ("Geographic Position, Latitude / Longitude and time")
     print ("Current Latitude: " + gpglld[1] + ' ' + gpglld[2])
@@ -88,4 +89,4 @@ def GPGLL_data():
     print ("----------------------------------")
 
 
-GPGGA_data()
+GPS_reader.GPGGA_data()
