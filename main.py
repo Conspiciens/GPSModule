@@ -13,21 +13,24 @@ parser.add_argument("-d", "--directory", help="Write directory where GPS module 
 
 args = parser.parse_args()
 
-if args.GPGSV: 
-    while True: 
-        read_NMEA.GPGSV_data(read_NMEA.read_nvmea())
+GPS = read_NMEA.GPS_reader()
+exit = input()
 
-elif args.GPGGA:
-    read_NMEA.GPGGA_data()
+while input != "q":
+    if args.GPGSV: 
+        GPS.GPGSV_data()
 
-elif args.GPVTG:
-    read_NMEA.GPVTG_data()
+    elif args.GPGGA:
+        GPS.GPGGA_data()
 
-elif args.GPGLL: 
-    read_NMEA.GPGLL_data()
+    elif args.GPVTG:
+        GPS.GPVTG_data()
 
-elif args.GPRMC: 
-    read_NMEA.GPRMC_data()
+    elif args.GPGLL: 
+        GPS.GPGLL_data()
 
-elif args.directory: 
-    read_NMEA.rewrite_directory(args.directory)
+    elif args.GPRMC: 
+        GPS.GPRMC_data()
+
+    elif args.directory: 
+        GPS.rewrite_directory(args.directory)
