@@ -14,9 +14,9 @@ parser.add_argument("-d", "--directory", help="Write directory where GPS module 
 args = parser.parse_args()
 
 GPS = read_NMEA.GPS_reader()
-exit = input()
 
-while input != "q":
+while str(input) != "q":
+    exit = input()
     if args.GPGSV: 
         GPS.GPGSV_data()
 
