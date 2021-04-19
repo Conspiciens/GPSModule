@@ -3,6 +3,8 @@ import serial
 import os
 from dotenv import load_dotenv
 
+ser = serial.Serial('/dev/serial0')
+
 def get_directory():
     dotenv_file = dotenv.find_dotenv('directory_value.env')
     dotenv.load_dotenv(dotenv_file)
@@ -15,12 +17,11 @@ def rewrite_directory(dir):
     dotenv.set_key(dotenv_file, "DIRECTORY", os.environ["DIRECTORY"])
 
 def read_nvmea():
-    ser = serial.Serial(get_directory())
     line = ser.readline().decode()
     list_info = line.split(',')
     return list_info
 
-def GPGGA_data(): 
+def GPGGA_data():  
     gpdd = read_nvmea()
 
     print ("Global Positioning Data")
@@ -61,8 +62,8 @@ def GPRMC_data():
     print ("Checksum: " + gpmrcd[12])
     print ("----------------------------------")
 
-def GPGSV_data(): 
-    gpgsvd = read_nvmea()
+def GPGSV_data(gpgsvd): 
+    # gpgsvd = read_nvmea()
 
     print ("GPS Satellites in View")
     print ("Total Number of Messages in Cycle: " + gpgsvd[1])
@@ -84,3 +85,6 @@ def GPGLL_data():
     print ("Current Longitude: " + gpglld[3] + ' ' + gpglld[4])
     print ("Checksum: " + gpglld[5])
     print ("----------------------------------")
+
+
+GPGGA_data()

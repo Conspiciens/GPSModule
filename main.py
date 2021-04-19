@@ -15,7 +15,7 @@ args = parser.parse_args()
 
 if args.GPGSV: 
     while True: 
-        read_NMEA.GPGSV_data()
+        read_NMEA.GPGSV_data(read_NMEA.read_nvmea())
 
 elif args.GPGGA:
     read_NMEA.GPGGA_data()
