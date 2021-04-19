@@ -3,7 +3,8 @@ import serial
 import os
 from dotenv import load_dotenv
 
-ser = serial.Serial('/dev/serial0')
+def start_serial(): 
+    return serial.Serial(get_directory())
 
 def get_directory():
     dotenv_file = dotenv.find_dotenv('directory_value.env')
@@ -17,7 +18,7 @@ def rewrite_directory(dir):
     dotenv.set_key(dotenv_file, "DIRECTORY", os.environ["DIRECTORY"])
 
 def read_nvmea():
-    line = ser.readline().decode()
+    line = start_serial().readline().decode()
     list_info = line.split(',')
     return list_info
 
