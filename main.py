@@ -17,24 +17,24 @@ GPS = read_NMEA.GPS_reader()
 
 
 if args.GPGSV:
-    while True:  
-      GPS.GPGSV_data()
+    while True:
+        GPS.GPGSV_data()
 
 elif args.GPGGA:
     while True:
-      GPS.GPGGA_data()
+        GPS.GPGGA_data()
 
 elif args.GPVTG:
     while True:
-      GPS.GPVTG_data()
+        GPS.GPVTG_data()
 
 elif args.GPGLL:
     while True: 
-      GPS.GPGLL_data()
+        GPS.GPGLL_data()
 
 elif args.GPRMC:
     while True: 
-      GPS.GPRMC_data()
+        GPS.GPRMC_data()
 
 elif args.directory: 
     GPS.rewrite_directory(args.directory)
