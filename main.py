@@ -16,20 +16,25 @@ args = parser.parse_args()
 GPS = read_NMEA.GPS_reader()
 
 
-if args.GPGSV: 
-    GPS.GPGSV_data()
+if args.GPGSV:
+    while True:  
+      GPS.GPGSV_data()
 
 elif args.GPGGA:
-    GPS.GPGGA_data()
+    while True:
+      GPS.GPGGA_data()
 
 elif args.GPVTG:
-    GPS.GPVTG_data()
+    while True:
+      GPS.GPVTG_data()
 
-elif args.GPGLL: 
-    GPS.GPGLL_data()
+elif args.GPGLL:
+    while True: 
+      GPS.GPGLL_data()
 
-elif args.GPRMC: 
-    GPS.GPRMC_data()
+elif args.GPRMC:
+    while True: 
+      GPS.GPRMC_data()
 
 elif args.directory: 
     GPS.rewrite_directory(args.directory)
